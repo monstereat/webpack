@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')  //CSS压缩  官方准备弃用
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");  // CSS压缩
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 module.exports = {
     entry: {
         index: './src/index.js',
@@ -101,7 +102,8 @@ module.exports = {
                 minifyJS: true,
                 removeComments: false
             }
-        })
+        }),
+        new CleanWebpackPlugin()
     ],
     devServer: {
         // contentBase: './dist', //服务基础目录
