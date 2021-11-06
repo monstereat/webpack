@@ -1,5 +1,6 @@
 'use strict';
 const path = require('path')
+const webpack = require('webpack')
 module.exports = {
     entry: {
         index: './src/index.js',
@@ -9,7 +10,7 @@ module.exports = {
         path: path.join(__dirname, 'dist'),
         filename: '[name].js'
     },
-    mode: 'production',
+    mode: 'development',
     module:{
         rules: [
             {
@@ -24,7 +25,7 @@ module.exports = {
                 ]
             },
             {
-                test: /.less$/,
+                test: /\.less$/,
                 use:[
                     'style-loader',
                     'css-loader',
@@ -45,5 +46,13 @@ module.exports = {
                 use: 'file-loader'
             },
         ]
+    },
+    plugins:[
+        new webpack.HotModuleReplacementPlugin()
+    ],
+    devServer: {
+        // contentBase: './dist', //服务基础目录
+        static: './dist',
+        hot: true,
     }
 }   
