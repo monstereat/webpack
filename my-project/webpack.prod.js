@@ -2,6 +2,9 @@
 const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')  //CSS压缩  官方准备弃用
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");  // CSS压缩
+const HtmlWebpackPlugin = require("html-webpack-plugin")
 module.exports = {
     entry: {
         index: './src/index.js',
@@ -12,6 +15,16 @@ module.exports = {
         filename: '[name]_[chunkhash:8].js'
     },
     mode: 'production',
+    optimization: {
+        minimize: true,
+        minimizer: [
+            // new OptimizeCSSAssetsPlugin({
+            //     assetNameRegExp: /\.css$/g,
+            //     cssProcessor: require('cssnano')
+            // }),
+            new CssMinimizerPlugin(),
+        ]
+    },
     module:{
         rules: [
             {
@@ -56,6 +69,38 @@ module.exports = {
     plugins:[
         new MiniCssExtractPlugin({
             filename: '[name]_[contenthash:8].css'
+        }),
+        // new OptimizeCSSAssetsPlugin({
+        //     assetNameRegExp: /\.css$/g,
+        //     cssProcessor: require('cssnano')
+        // }),
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, 'src/index.html'),  // 模版所在位置
+            filename: 'index.html', // 打包出来html文件名字
+            chunks: ['index'], // html使用哪些chunks
+            inject: true, // 打包出来chunk css js 会自动注入点 html 中来
+            minify: {
+                html5: true,
+                collapseWhitespace: true,
+                preserveLineBreaks: false,
+                minifyCSS: true,
+                minifyJS: true,
+                removeComments: false
+            }
+        }),
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, 'src/search.html'),
+            filename: 'search.html',
+            chunks: ['search'],
+            inject: true,
+            minify: {
+                html5: true,
+                collapseWhitespace: true,
+                preserveLineBreaks: false,
+                minifyCSS: true,
+                minifyJS: true,
+                removeComments: false
+            }
         })
     ],
     devServer: {
