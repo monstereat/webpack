@@ -7,7 +7,7 @@
  class Search extends React.Component{
      render(){
          return <div className="search-text">
-             Search Text <img src={ logo } />
+             Search Text 的文字<img src={ logo } />
         </div>
      }
  }
