@@ -57,6 +57,13 @@ module.exports = {
                             } 
                         }
                     },
+                    {
+                        loader: 'px2rem-loader',
+                        options: {
+                            remUnit: 75,  //rem相对于px转换单位  1个rem代表75px
+                            remPrecision: 8   //px转rem小数点位数
+                        }
+                    }
                 ]
             },
             {
