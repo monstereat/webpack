@@ -29,6 +29,10 @@ module.exports = {
     module:{
         rules: [
             {
+                test: /.html$/,
+                use: 'inline-html-loader'
+            },
+            {
                 test: /.js$/,
                 use: 'babel-loader'
             },
